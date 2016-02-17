@@ -41,6 +41,16 @@ func Test_CreateUser(t *testing.T) {
 	}
 }
 
+func Test_GetUser(t *testing.T) {
+	if testUserDB == nil {
+		return
+	}
+	_, err = testUserDB.GetUser(user1.Id)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+}
+
 func Test_GetUsers(t *testing.T) {
 	if testUserDB == nil {
 		return

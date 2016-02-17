@@ -6,6 +6,7 @@ import (
 )
 
 type User interface {
+	GetUser(int64) (*Model.User, error)
 	GetUsers() ([]*Model.User, error)
 	InsertUser(string) (*Model.User, error)
 	GetRelation(int64, int64) (*Model.Relation, error)
@@ -42,6 +43,12 @@ func (u *UserData) Init() error {
 		}
 	}
 	return nil
+}
+
+func (u *UserData) GetUser(userid int64) (*Model.User, error) {
+	var user Model.User
+	_, err := u.db.QueryOne(&user, `SELECT * FROM users WHERE id=?`, userid)
+	return &user, err
 }
 
 func (u *UserData) GetUsers() ([]*Model.User, error) {

@@ -13,6 +13,19 @@ func Test_Init(t *testing.T) {
 	userService.userDatabase = new(TestUserDB)
 }
 
+func Test_GetUser(t *testing.T) {
+	user, err := userService.GetUser(1)
+
+	if err != nil {
+		t.Fatal(err.Error())
+		return
+	}
+
+	if user == nil {
+		t.Fatal("Fetch user error")
+	}
+}
+
 func Test_GetUsers(t *testing.T) {
 	users, err := userService.GetUsers()
 
@@ -81,6 +94,14 @@ func Test_ChangeUserRelation(t *testing.T) {
 }
 
 type TestUserDB struct {
+}
+
+func (t *TestUserDB) GetUser(userid int64) (*Model.User, error) {
+	return &Model.User{
+		Id:   1,
+		Name: "test",
+		Type: "user",
+	}, nil
 }
 
 func (t *TestUserDB) GetUsers() ([]*Model.User, error) {

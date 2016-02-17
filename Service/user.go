@@ -20,6 +20,15 @@ func DefaultUserService(userDatabase Database.User) *UserService {
 	return userService
 }
 
+func (u *UserService) GetUser(userid int64) (*Model.User, error) {
+	user, err := u.userDatabase.GetUser(userid)
+	if err != nil {
+		Nlog(0, err)
+	}
+
+	return user, err
+}
+
 func (u *UserService) GetUsers() ([]*Model.User, error) {
 	users, err := u.userDatabase.GetUsers()
 	if err != nil {

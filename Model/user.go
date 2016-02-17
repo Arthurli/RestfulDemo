@@ -21,6 +21,16 @@ type Relation struct {
 	Relation int64 `pg:"relation"`
 }
 
+var AllowedRelation = map[string]int64{
+	RelationLiked:    1,
+	RelationDisliked: -1,
+}
+
+const (
+	RelationLiked    = "liked"
+	RelationDisliked = "disliked"
+)
+
 func (r *Relation) String() string {
 	return fmt.Sprintf("Relation<%d %d %d %d>", r.Id, r.UserId, r.TargetId, r.Relation)
 }
