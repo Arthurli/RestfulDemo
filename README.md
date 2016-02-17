@@ -1,5 +1,5 @@
 # RestfulDemo
-这是一个使用 Go 语言编写的 Restful Demo, 使用 PostgreSQL 数据库, 使用原生代码 实现 web 框架, 中间件, config, log 等功能
+这是一个使用 Go 语言编写的 Restful Demo, 使用 PostgreSQL 数据库
 
 ##实现 API
 
