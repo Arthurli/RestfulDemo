@@ -22,5 +22,5 @@ type Relation struct {
 }
 
 func (r *Relation) String() string {
-	return fmt.Sprintf("Relation<%d %d %d %d>", r.Id, r.UserId, r.TargetId, r.TargetId)
+	return fmt.Sprintf("Relation<%d %d %d %d>", r.Id, r.UserId, r.TargetId, r.Relation)
 }

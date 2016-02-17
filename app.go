@@ -2,6 +2,7 @@ package main
 
 import (
 	"RestfulDemo/Database"
+	"RestfulDemo/Service"
 	"fmt"
 )
 
@@ -37,35 +38,84 @@ func main() {
 	}
 	fmt.Println(users)
 
-	a, err := userData.InsertRelation(user1.Id, user2.Id, 1)
+	// a, err := userData.InsertRelation(user1.Id, user2.Id, 1)
+	// if err != nil {
+	// 	fmt.Println("3")
+	// 	fmt.Println(err)
+	// 	return
+	// }
+	// fmt.Println(a)
+
+	// a1, err := userData.UpdateRelation(user1.Id, user2.Id, 2)
+	// if err != nil {
+	// 	fmt.Println("4")
+	// 	fmt.Println(err)
+	// 	return
+	// }
+	// fmt.Println(a1)
+
+	// b, err := userData.GetRelation(user1.Id, user2.Id)
+	// if err != nil {
+	// 	fmt.Println("5")
+	// 	fmt.Println(err)
+	// 	return
+	// }
+	// fmt.Println(b)
+
+	// c, err := userData.GetRelations(user1.Id)
+	// if err != nil {
+	// 	fmt.Println("6")
+	// 	fmt.Println(err)
+	// 	return
+	// }
+	// fmt.Println(c)
+
+	userService := Service.DefaultUserService(userData)
+	us, err := userService.GetUsers()
 	if err != nil {
-		fmt.Println("3")
+		fmt.Println("7")
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(a)
+	fmt.Println(us)
 
-	err = userData.UpdateRelation(user1.Id, user2.Id, 2)
+	uu, err := userService.CreateUser("123123")
 	if err != nil {
-		fmt.Println("4")
+		fmt.Println("8")
 		fmt.Println(err)
 		return
 	}
+	fmt.Println(uu)
 
-	b, err := userData.GetRelation(user1.Id, user2.Id)
+	r1, err := userService.ChangeUserRelation(user1.Id, user2.Id, 1)
 	if err != nil {
-		fmt.Println("5")
+		fmt.Println("9")
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(b)
+	fmt.Println(r1)
 
-	c, err := userData.GetRelations(user1.Id)
+	rr, err := userService.GetUserRelations(user1.Id)
 	if err != nil {
-		fmt.Println("6")
+		fmt.Println("10")
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(c)
+	fmt.Println(rr)
 
+	r2, err := userService.ChangeUserRelation(user2.Id, user1.Id, 1)
+	if err != nil {
+		fmt.Println("11")
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(r2)
+
+	rrr, err := userService.GetUserRelations(user1.Id)
+	if err != nil {
+		fmt.Println("12")
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(rrr)
 }

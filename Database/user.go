@@ -7,11 +7,11 @@ import (
 
 type User interface {
 	GetUsers() ([]*Model.User, error)
-	InsertUser(string) error
+	InsertUser(string) (*Model.User, error)
 	GetRelation(int64, int64) (*Model.Relation, error)
 	GetRelations(int64) ([]*Model.Relation, error)
-	InsertRelation(int64, int64, int64) error
-	UpdateRelation(int64, int64, int64) error
+	InsertRelation(int64, int64, int64) (*Model.Relation, error)
+	UpdateRelation(int64, int64, int64) (*Model.Relation, error)
 }
 
 func DefaultUserData() (*UserData, error) {
@@ -80,9 +80,11 @@ func (u *UserData) InsertRelation(userid, targetid, relarion int64) (*Model.Rela
 	return &relationObject, err
 }
 
-func (u *UserData) UpdateRelation(userid, targetid, relarion int64) error {
-	_, err := u.db.Exec(`
-        UPDATE relations SET relation = ? WHERE userid = ? AND target = ?
+func (u *UserData) UpdateRelation(userid, targetid, relarion int64) (*Model.Relation, error) {
+	var relationObject Model.Relation
+	_, err := u.db.QueryOne(&relationObject, `
+        UPDATE relations SET relation = ? WHERE userid = ? AND target = ? 
+        RETURNING id, userid, target, relation
     `, relarion, userid, targetid)
-	return err
+	return &relationObject, err
 }
